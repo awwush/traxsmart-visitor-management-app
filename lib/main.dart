@@ -1,8 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
+import 'package:vms/theme/app_notifier.dart';
+import 'package:vms/themes/app_theme_notifier.dart';
 import 'package:vms/ui/login.dart';
+import 'localizations/app_localization_delegate.dart';
+import 'localizations/language.dart';
 
 void main() {
-  runApp(const MyApp());
+  //You will need to initialize AppThemeNotifier class for theme changes.
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // AppTheme.init();
+
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(ChangeNotifierProvider<AppNotifier>(
+      create: (context) => AppNotifier(),
+      child: ChangeNotifierProvider<FxAppThemeNotifier>(
+        create: (context) => FxAppThemeNotifier(),
+        child: MyApp(),
+      ),
+    ));
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -26,6 +47,13 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
+      localizationsDelegates: [
+        AppLocalizationsDelegate(context), // Add this line
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: Language.getLocales(),
       home: const LoginScreen(),
     );
   }
