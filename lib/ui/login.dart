@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:provider/provider.dart';
 import 'package:vms/ui/forgot_password.dart';
+import 'package:vms/ui/purpose_of_visit.dart';
 import 'package:vms/ui/select_language.dart';
 import 'package:vms/extensions/string.dart';
 
@@ -121,10 +122,19 @@ class _LoginScreenState extends State<LoginScreen> {
                                 color: Color(0xffc5558e),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10.0))),
-                            child: const Icon(
-                              Icons.chevron_right_rounded,
-                              size: 40.0,
-                              color: Colors.white,
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) =>
+                                            const PurposeOfVisit()));
+                              },
+                              child: const Icon(
+                                Icons.chevron_right_rounded,
+                                size: 40.0,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),

@@ -96,7 +96,7 @@ class _SelectLanguageDialogState extends State<SelectLanguageDialog> {
                       width: MediaQuery.of(context).size.width,
                       height: 40,
                       decoration: BoxDecoration(
-                        color: customTheme.medicarePrimary,
+                        color: Color(0xffc5558e),
                         borderRadius:
                             const BorderRadius.all(Radius.circular(8.0)),
                       ),
@@ -136,7 +136,7 @@ class _SelectLanguageDialogState extends State<SelectLanguageDialog> {
                 },
                 groupValue: currentLanguage,
                 value: language,
-                activeColor: AppTheme.customTheme.medicarePrimary,
+                activeColor: Color(0xffc5558e),
               ),
               Text(
                 language.languageName,
