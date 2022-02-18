@@ -30,6 +30,7 @@ class _VisitorDetailsState extends State<VisitorDetails> {
       cursorColor: customTheme.homemadePrimary,
       decoration: InputDecoration(
         hintText: text!,
+        labelText: text!,
         hintStyle: TextStyle(
           color: theme.colorScheme.onBackground.withAlpha(200),
         ),
