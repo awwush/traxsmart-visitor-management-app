@@ -52,12 +52,12 @@ class _QRScannerState extends State<QRScanner> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     const Text("write bar code"),
-                    TextField(
-                      cursorColor: customTheme.homemadePrimary,
-                      decoration: const InputDecoration(
-                        labelText: 'write bar code',
-                      ),
-                    ),
+                    // TextField(
+                    //   cursorColor: customTheme.homemadePrimary,
+                    //   decoration: const InputDecoration(
+                    //     labelText: 'write bar code',
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
