@@ -2,7 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:otp_text_field/otp_field.dart';
-import 'package:vms/ui/forgot_password.dart';
+import 'package:vms/ui/dashboard.dart';
+import 'package:vms/ui/login/forgot_password.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -99,7 +100,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const SizedBox(height: 40.0),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => const Dashboard()));
+                        },
                         child: Container(
                           decoration: const BoxDecoration(
                               color: Color(0xffc5558e),
