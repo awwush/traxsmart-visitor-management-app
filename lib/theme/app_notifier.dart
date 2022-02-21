@@ -48,7 +48,6 @@ class AppNotifier extends ChangeNotifier {
       else
         changeDirectionality(TextDirection.ltr, false);
     }
-
     await Language.changeLanguage(language);
 
     if (notify) notifyListeners();
