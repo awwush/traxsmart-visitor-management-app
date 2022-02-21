@@ -4,9 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:provider/provider.dart';
 import 'package:vms/extensions/string.dart';
+import 'package:vms/theme/app_notifier.dart';
 import 'package:vms/ui/select_language.dart';
-
-import '../theme/app_notifier.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({Key? key}) : super(key: key);

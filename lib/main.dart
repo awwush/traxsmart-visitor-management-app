@@ -4,9 +4,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:vms/theme/app_notifier.dart';
 import 'package:vms/themes/app_theme_notifier.dart';
-import 'package:vms/ui/login.dart';
 import 'localizations/app_localization_delegate.dart';
 import 'localizations/language.dart';
+import 'ui/login/login.dart';
 
 void main() {
   //You will need to initialize AppThemeNotifier class for theme changes.

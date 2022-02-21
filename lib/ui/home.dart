@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vms/ui/profile/profile_screen.dart';
 
 import '../data/card_style/card_style.dart';
+import 'purpose_of_visit.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -131,12 +132,19 @@ class _HomeState extends State<Home> {
                               child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                'Scan QR',
-                                style: GoogleFonts.lato(
-                                    textStyle: const TextStyle(
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.w600)),
+                              GestureDetector(
+                                child: Text(
+                                  'Scan QR',
+                                  style: GoogleFonts.lato(
+                                      textStyle: const TextStyle(
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.w600)),
+                                ),
+                                onTap: () {
+                                  MaterialPageRoute(
+                                      builder: (_) =>
+                                      const PurposeOfVisit());
+                                },
                               ),
                               const SizedBox(width: 20.0),
                               const Icon(Icons.qr_code_scanner_rounded),
