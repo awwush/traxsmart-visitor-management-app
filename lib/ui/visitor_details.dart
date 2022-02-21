@@ -30,6 +30,10 @@ class _VisitorDetailsState extends State<VisitorDetails> {
       cursorColor: customTheme.homemadePrimary,
       decoration: InputDecoration(
         hintText: text!,
+<<<<<<< HEAD
+=======
+        labelText: text,
+>>>>>>> origin/dev_170222_visitor
         hintStyle: TextStyle(
           color: theme.colorScheme.onBackground.withAlpha(200),
         ),
@@ -57,6 +61,7 @@ class _VisitorDetailsState extends State<VisitorDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
+<<<<<<< HEAD
         padding: const EdgeInsets.fromLTRB(24, 44, 24, 24),
         children: [
           Column(
@@ -88,6 +93,22 @@ class _VisitorDetailsState extends State<VisitorDetails> {
                 )),
               ),
             ],
+=======
+        padding: const EdgeInsets.fromLTRB(24, 44, 24, 0),
+        children: [
+          const Center(
+            child: ClipRRect(
+              borderRadius: BorderRadius.all(
+                Radius.circular(24),
+              ),
+              child: Image(
+                fit: BoxFit.cover,
+                width: 100,
+                height: 100,
+                image: AssetImage('assets/images/visitor.png'),
+              ),
+            ),
+>>>>>>> origin/dev_170222_visitor
           ),
           const SizedBox(
             height: 20,
@@ -135,6 +156,7 @@ class _VisitorDetailsState extends State<VisitorDetails> {
             ),
           ),
           const SizedBox(
+<<<<<<< HEAD
             height: 40,
           ),
           Expanded(
@@ -169,6 +191,71 @@ class _VisitorDetailsState extends State<VisitorDetails> {
           )
         ],
       ),
+=======
+            height: 20,
+          ),
+          Column(
+            children: [
+              Container(
+                height: 100,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.onBackground.withAlpha(18),
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(8.0),
+                      topRight: Radius.circular(8.0)),
+                ),
+                child: const Icon(FeatherIcons.file),
+              ),
+              Container(
+                height: 32.0,
+                width: MediaQuery.of(context).size.width,
+                decoration: const BoxDecoration(
+                  color: Color(0xffc5558e),
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(8.0),
+                      bottomRight: Radius.circular(8.0)),
+                ),
+                child: const Center(
+                    child: Text(
+                  'Upload Doc',
+                  style: TextStyle(color: Colors.white),
+                )),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+        ],
+      ),
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.fromLTRB(24, 14, 24, 14),
+        child: GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (_) => const QRScanner()));
+          },
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: 54,
+            decoration: const BoxDecoration(
+              color: Color(0xffc5558e),
+              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            ),
+            child: const Center(
+                child: Text(
+              'Allow',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 19.0,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.0),
+            )),
+          ),
+        ),
+      ),
+>>>>>>> origin/dev_170222_visitor
     );
   }
 }
