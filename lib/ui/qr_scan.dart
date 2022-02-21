@@ -3,12 +3,8 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-
-<<<<<<< HEAD
-=======
 import '../theme/app_theme.dart';
 
->>>>>>> origin/dev_170222_visitor
 class QRScanner extends StatefulWidget {
   const QRScanner({Key? key}) : super(key: key);
 
@@ -17,18 +13,13 @@ class QRScanner extends StatefulWidget {
 }
 
 class _QRScannerState extends State<QRScanner> {
-<<<<<<< HEAD
-=======
   late ThemeData theme;
   late CustomTheme customTheme;
->>>>>>> origin/dev_170222_visitor
   Barcode? result;
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
   @override
-<<<<<<< HEAD
-=======
   void initState() {
     super.initState();
     theme = AppTheme.theme;
@@ -36,7 +27,6 @@ class _QRScannerState extends State<QRScanner> {
   }
 
   @override
->>>>>>> origin/dev_170222_visitor
   void reassemble() {
     super.reassemble();
     if (Platform.isAndroid) {
@@ -50,10 +40,8 @@ class _QRScannerState extends State<QRScanner> {
     return Scaffold(
       body: Column(
         children: <Widget>[
-<<<<<<< HEAD
-          Expanded(flex: 4, child: _buildQrView(context)),
-=======
-          Expanded(
+          //Expanded(flex: 4, child: _buildQrView(context)),
+          /*Expanded(
             flex: 1,
             child: FittedBox(
               fit: BoxFit.contain,
@@ -74,9 +62,8 @@ class _QRScannerState extends State<QRScanner> {
                 ),
               ),
             ),
-          ),
+          ),*/
           Expanded(flex: 3, child: _buildQrView(context)),
->>>>>>> origin/dev_170222_visitor
           Expanded(
             flex: 1,
             child: FittedBox(
@@ -87,14 +74,6 @@ class _QRScannerState extends State<QRScanner> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-<<<<<<< HEAD
-                    // const Text(
-                    //   'Scan',
-                    //   style: TextStyle(
-                    //       fontSize: 14.0, fontWeight: FontWeight.w600),
-                    // ),
-=======
->>>>>>> origin/dev_170222_visitor
                     Container(
                       margin: const EdgeInsets.all(8),
                       child: ElevatedButton(

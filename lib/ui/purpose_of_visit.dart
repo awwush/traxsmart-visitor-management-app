@@ -29,11 +29,7 @@ class _PurposeOfVisitState extends State<PurposeOfVisit> {
             context, MaterialPageRoute(builder: (_) => const VisitorDetails()));
       },
       child: Card(
-<<<<<<< HEAD
-        color: Colors.grey.shade300,
-=======
         color: Colors.grey.shade200,
->>>>>>> origin/dev_170222_visitor
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
         elevation: 2,
         // clipBehavior: Clip.hardEdge,

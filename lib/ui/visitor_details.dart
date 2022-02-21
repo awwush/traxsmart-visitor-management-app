@@ -30,10 +30,7 @@ class _VisitorDetailsState extends State<VisitorDetails> {
       cursorColor: customTheme.homemadePrimary,
       decoration: InputDecoration(
         hintText: text!,
-<<<<<<< HEAD
-=======
         labelText: text,
->>>>>>> origin/dev_170222_visitor
         hintStyle: TextStyle(
           color: theme.colorScheme.onBackground.withAlpha(200),
         ),
@@ -61,8 +58,7 @@ class _VisitorDetailsState extends State<VisitorDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
-<<<<<<< HEAD
-        padding: const EdgeInsets.fromLTRB(24, 44, 24, 24),
+        /*padding: const EdgeInsets.fromLTRB(24, 44, 24, 24),
         children: [
           Column(
             children: [
@@ -92,8 +88,8 @@ class _VisitorDetailsState extends State<VisitorDetails> {
                   style: TextStyle(color: Colors.white),
                 )),
               ),
-            ],
-=======
+            ],*/
+
         padding: const EdgeInsets.fromLTRB(24, 44, 24, 0),
         children: [
           const Center(
@@ -108,7 +104,6 @@ class _VisitorDetailsState extends State<VisitorDetails> {
                 image: AssetImage('assets/images/visitor.png'),
               ),
             ),
->>>>>>> origin/dev_170222_visitor
           ),
           const SizedBox(
             height: 20,
@@ -156,7 +151,6 @@ class _VisitorDetailsState extends State<VisitorDetails> {
             ),
           ),
           const SizedBox(
-<<<<<<< HEAD
             height: 40,
           ),
           Expanded(
@@ -170,7 +164,10 @@ class _VisitorDetailsState extends State<VisitorDetails> {
                           MaterialPageRoute(builder: (_) => const QRScanner()));
                     },
                     child: Container(
-                      width: MediaQuery.of(context).size.width,
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width,
                       height: 54,
                       decoration: const BoxDecoration(
                         color: Color(0xffc5558e),
@@ -178,21 +175,21 @@ class _VisitorDetailsState extends State<VisitorDetails> {
                       ),
                       child: const Center(
                           child: Text(
-                        'Allow',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 19.0,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 1.0),
-                      )),
+                            'Allow',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 19.0,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 1.0),
+                          )),
                     ),
                   ),
                 ])),
           )
         ],
       ),
-=======
-            height: 20,
+
+      /* height: 20,
           ),
           Column(
             children: [
@@ -256,6 +253,7 @@ class _VisitorDetailsState extends State<VisitorDetails> {
         ),
       ),
 >>>>>>> origin/dev_170222_visitor
+    );*/
     );
   }
 }
