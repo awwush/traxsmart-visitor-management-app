@@ -200,31 +200,52 @@ class _PasswordScreenState extends State<PasswordScreen> {
               SizedBox(
                 height: 10,
               ),
-              GestureDetector(
-                onTap: () {},
-                child: Container(
-                  decoration: const BoxDecoration(
-                      color: Color(0xffc5558e),
-                      borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) =>
-                                  //const PurposeOfVisit()));
-                                  const LoginScreen()));
-                    },
-                    child: const Icon(
-                      Icons.chevron_right_rounded,
-                      size: 40.0,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
+
+              // Padding(
+              //   padding: const EdgeInsets.all(16.0),
+              //   child: Container(
+              //       decoration: const BoxDecoration(
+              //           color: Color(0xffc5558e),
+              //           borderRadius: BorderRadius.all(Radius.circular(10.0))),
+              //       child: GestureDetector(
+              //         onTap: () {
+              //           Navigator.push(
+              //               context,
+              //               MaterialPageRoute(
+              //                   builder: (_) =>
+              //                       //const PurposeOfVisit()));
+              //                       const LoginScreen()));
+              //         },
+              //         child: const Icon(
+              //           Icons.chevron_right_rounded,
+              //           size: 40.0,
+              //           color: Colors.white,
+              //         ),
+              //       ),
+              //     ),
+              // ),
               const SizedBox(height: 20.0),
             ],
+          ),
+          bottomNavigationBar: Padding(
+            padding: EdgeInsets.fromLTRB(155, 14, 155, 14),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => const LoginScreen()));
+              },
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Color(0xffc5558e),
+                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                ),
+                child: const Icon(
+                  Icons.chevron_right_rounded,
+                  size: 40.0,
+                  color: Colors.white,
+                ),
+              ),
+            ),
           ),
         ),
       );
