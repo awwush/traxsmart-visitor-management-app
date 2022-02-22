@@ -164,10 +164,7 @@ class _VisitorDetailsState extends State<VisitorDetails> {
                           MaterialPageRoute(builder: (_) => const QRScanner()));
                     },
                     child: Container(
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width,
+                      width: MediaQuery.of(context).size.width,
                       height: 54,
                       decoration: const BoxDecoration(
                         color: Color(0xffc5558e),
@@ -175,13 +172,13 @@ class _VisitorDetailsState extends State<VisitorDetails> {
                       ),
                       child: const Center(
                           child: Text(
-                            'Allow',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 19.0,
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 1.0),
-                          )),
+                        'Allow',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 19.0,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1.0),
+                      )),
                     ),
                   ),
                 ])),

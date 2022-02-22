@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,17 +6,17 @@ import 'package:otp_text_field/otp_field.dart';
 import 'package:provider/provider.dart';
 import 'package:vms/extensions/string.dart';
 import 'package:vms/theme/app_notifier.dart';
-import 'package:vms/ui/login/new_password.dart';
 import 'package:vms/ui/select_language.dart';
+import '../profile/create_profile_screen.dart';
 
-class ForgotPassword extends StatefulWidget {
-  const ForgotPassword({Key? key}) : super(key: key);
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
-  _ForgotPasswordState createState() => _ForgotPasswordState();
+  _RegisterScreenState createState() => _RegisterScreenState();
 }
 
-class _ForgotPasswordState extends State<ForgotPassword> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final List<bool> _dataExpansionPanel = [true, false];
   int _counter = 30;
   Timer? _timer;
@@ -89,7 +88,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       bottom: 20,
                       right: 40,
                       child: Text(
-                        "Forgot PIN".tr(),
+                        "Sign Up".tr(),
                         style: GoogleFonts.lato(
                             textStyle:
                                 const TextStyle(fontWeight: FontWeight.w600),
@@ -119,7 +118,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                             return Container(
                                 padding: const EdgeInsets.all(16),
                                 child: Text(
-                                  "Number".tr(),
+                                  "Phone Number".tr(),
                                   style: GoogleFonts.lato(
                                       textStyle: TextStyle(
                                           fontWeight: isExpanded
@@ -295,7 +294,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (_) =>
-                                                          PasswordScreen()));
+                                                          CreateProfileScreen()));
                                             },
                                             child: Text(
                                               "Verify".tr(),
