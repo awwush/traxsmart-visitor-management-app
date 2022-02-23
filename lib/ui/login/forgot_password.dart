@@ -1,7 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +9,7 @@ import 'package:vms/extensions/string.dart';
 import 'package:vms/theme/app_notifier.dart';
 import 'package:vms/ui/login/new_password.dart';
 import 'package:vms/ui/select_language.dart';
+import 'package:wc_form_validators/wc_form_validators.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({Key? key}) : super(key: key);
@@ -18,6 +19,8 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
+  final _formKey = GlobalKey<FormState>();
+  final RegExp phoneRegex = RegExp(r'^[6-9]\d{9}$');
   final List<bool> _dataExpansionPanel = [true, false];
   int _counter = 30;
   Timer? _timer;
@@ -89,7 +92,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       bottom: 20,
                       right: 40,
                       child: Text(
-                        "Forgot PIN".tr(),
+                        "Forgot Password".tr(),
                         style: GoogleFonts.lato(
                             textStyle:
                                 const TextStyle(fontWeight: FontWeight.w600),
@@ -132,6 +135,19 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                             child: Column(
                               children: <Widget>[
                                 TextFormField(
+                                  inputFormatters: <TextInputFormatter>[
+                                    FilteringTextInputFormatter.allow(
+                                        RegExp(r'[0-9]')),
+                                    LengthLimitingTextInputFormatter(10),
+                                  ],
+                                  // validator: (value) {
+                                  //   if (!phoneRegex.hasMatch(value!)) {
+                                  //     return 'Please enter valid phone number';
+                                  //   }
+                                  //   return null;
+                                  // },
+                                  validator:
+                                      Validators.required('Number is required'),
                                   style: GoogleFonts.lato(
                                       letterSpacing: 0.1,
                                       color: const Color(0xffc5558e),
@@ -178,15 +194,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: <Widget>[
-                                      // TextButton(
-                                      //     onPressed: () {},
-                                      //     child: Text(
-                                      //       "Call Me".tr(),
-                                      //       style: GoogleFonts.lato(
-                                      //           textStyle: const TextStyle(
-                                      //               fontWeight: FontWeight.w600,
-                                      //               color: Colors.grey)),
-                                      //     )),
                                       Container(
                                         decoration: const BoxDecoration(
                                             borderRadius: BorderRadius.all(

@@ -1,22 +1,52 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vms/theme/app_theme.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:vms/ui/qr_scan.dart';
+import 'package:vms/ui/track/camera.dart';
+import 'package:wc_form_validators/wc_form_validators.dart';
 
-class VisitorDetails extends StatefulWidget {
-  const VisitorDetails({Key? key}) : super(key: key);
+Future<void> main() async {
+  // Ensure that plugin services are initialized so that `availableCameras()`
+  // can be called before `runApp()`
+  WidgetsFlutterBinding.ensureInitialized();
 
-  @override
-  _VisitorDetailsState createState() => _VisitorDetailsState();
+  // Obtain a list of the available cameras on the device.
+  final cameras = await availableCameras();
+
+  // Get a specific camera from the list of available cameras.
+  final firstCamera = cameras.first;
+
+  runApp(
+    MaterialApp(
+      theme: ThemeData.dark(),
+      home: TakePictureScreen(
+        // Pass the appropriate camera to the TakePictureScreen widget.
+        camera: firstCamera,
+      ),
+    ),
+  );
 }
 
-class _VisitorDetailsState extends State<VisitorDetails> {
+class RegisterDetailsScreen extends StatefulWidget {
+  const RegisterDetailsScreen({Key? key}) : super(key: key);
+
+  @override
+  _RegisterDetailsScreenState createState() => _RegisterDetailsScreenState();
+}
+
+class _RegisterDetailsScreenState extends State<RegisterDetailsScreen> {
   late ThemeData theme;
   late CustomTheme customTheme;
-  String dropdownvalue = 'Collectrate Office';
+  String dropdownvalue = 'Work Type';
 
-  var items = ['Collectrate Office', 'Post Office', 'RTO Office'];
+  var items = ['Work Type', 'Post Office', 'RTO Office'];
+
+  get firstCamera => firstCamera;
+
+
 
   @override
   void initState() {
@@ -60,16 +90,25 @@ class _VisitorDetailsState extends State<VisitorDetails> {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(24, 44, 24, 0),
         children: [
-          const Center(
-            child: ClipRRect(
-              borderRadius: BorderRadius.all(
-                Radius.circular(24),
-              ),
-              child: Image(
-                fit: BoxFit.cover,
-                width: 100,
-                height: 100,
-                image: AssetImage("assets/images/man.png"),
+          SizedBox(
+            height: 40,
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => TakePictureScreen(camera: firstCamera,)));
+            },
+            child: const Center(
+              child: ClipRRect(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(24),
+                ),
+                child: Image(
+                  fit: BoxFit.cover,
+                  width: 100,
+                  height: 100,
+                  image: AssetImage('assets/images/visitor.png'),
+                ),
               ),
             ),
           ),
@@ -80,11 +119,39 @@ class _VisitorDetailsState extends State<VisitorDetails> {
           const SizedBox(
             height: 20,
           ),
-          _buildForm(text: 'Phone Number'),
-          const SizedBox(
-            height: 20,
+      TextFormField(
+        cursorColor: customTheme.homemadePrimary,
+        inputFormatters: <TextInputFormatter>[
+          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+          LengthLimitingTextInputFormatter(10),
+        ],
+        validator: Validators.required('Number is required'),
+
+        decoration: InputDecoration(
+          hintText: 'Phone Number',
+          labelText: 'Phone Number',
+          hintStyle: TextStyle(
+            color: theme.colorScheme.onBackground.withAlpha(200),
           ),
-          _buildForm(text: 'Work Type'),
+          border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(8.0),
+            ),
+            borderSide: BorderSide.none,
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: const BorderRadius.all(
+              Radius.circular(8.0),
+            ),
+            borderSide: BorderSide(color: customTheme.homemadePrimary, width: 2),
+          ),
+          filled: true,
+          isDense: true,
+          contentPadding: const EdgeInsets.fromLTRB(25, 15, 15, 25),
+        ),
+        textCapitalization: TextCapitalization.sentences,
+        keyboardType: TextInputType.phone,
+      ),
           const SizedBox(
             height: 20,
           ),
@@ -96,6 +163,8 @@ class _VisitorDetailsState extends State<VisitorDetails> {
             ),
             child: DropdownButtonHideUnderline(
               child: DropdownButton(
+                hint: Text("Work Type"),
+                disabledHint: Text("Work Type"),
                 value: dropdownvalue,
                 icon: const Icon(FeatherIcons.arrowDownCircle),
                 items: items.map((String items) {
@@ -121,37 +190,6 @@ class _VisitorDetailsState extends State<VisitorDetails> {
           const SizedBox(
             height: 20,
           ),
-
-          Column(
-            children: [
-              Container(
-                height: 100,
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.onBackground.withAlpha(18),
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(8.0),
-                      topRight: Radius.circular(8.0)),
-                ),
-                child: const Icon(FeatherIcons.file),
-              ),
-              Container(
-                height: 32.0,
-                width: MediaQuery.of(context).size.width,
-                decoration: const BoxDecoration(
-                  color: Color(0xffc5558e),
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(8.0),
-                      bottomRight: Radius.circular(8.0)),
-                ),
-                child: const Center(
-                    child: Text(
-                  'Upload Doc',
-                  style: TextStyle(color: Colors.white),
-                )),
-              ),
-            ],
-          ),
           const SizedBox(
             height: 10,
           ),
@@ -173,7 +211,7 @@ class _VisitorDetailsState extends State<VisitorDetails> {
             ),
             child: const Center(
                 child: Text(
-              'Allow',
+              'Register',
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 19.0,

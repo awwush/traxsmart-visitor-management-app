@@ -111,7 +111,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                       bottom: 20,
                       right: 40,
                       child: Text(
-                        "Create Profile".tr(),
+                        "Sign Up".tr(),
                         style: GoogleFonts.lato(
                             textStyle:
                                 const TextStyle(fontWeight: FontWeight.w600),
@@ -245,7 +245,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                 ),
                 child: const Center(
                     child: Text(
-                  'LogIn',
+                  'Create Profile',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 19.0,

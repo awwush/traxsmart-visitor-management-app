@@ -5,6 +5,7 @@ import 'package:vms/theme/app_notifier.dart';
 import 'package:vms/ui/login/login.dart';
 import 'package:vms/ui/select_language.dart';
 import 'package:vms/extensions/string.dart';
+import 'package:wc_form_validators/wc_form_validators.dart';
 
 class PasswordScreen extends StatefulWidget {
   const PasswordScreen({Key? key}) : super(key: key);
@@ -14,6 +15,10 @@ class PasswordScreen extends StatefulWidget {
 }
 
 class _PasswordScreenState extends State<PasswordScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final RegExp phoneRegex = RegExp(r'^[6-9]\d{9}$');
+  final _passwordFieldKey = GlobalKey<FormFieldState<String>>();
+
   @override
   Widget build(BuildContext context) {
     return Consumer<AppNotifier>(
@@ -94,6 +99,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
                       Container(
                         padding: const EdgeInsets.all(16),
                         child: TextFormField(
+                          key: _passwordFieldKey,
                           obscureText: true,
                           cursorColor: Color(0xffc5558e),
                           style: GoogleFonts.lato(
@@ -129,6 +135,14 @@ class _PasswordScreenState extends State<PasswordScreen> {
                           //keyboardType: TextInputType.,
                           autofocus: true,
                           textCapitalization: TextCapitalization.sentences,
+                          validator: Validators.compose([
+                            Validators.required('Password is required'),
+                            Validators.minLength(
+                                3, 'Password cannot be less than 3 characters'),
+                            Validators.patternString(
+                                r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
+                                'Invalid Password')
+                          ]),
                         ),
                       ),
                     ],
@@ -156,6 +170,12 @@ class _PasswordScreenState extends State<PasswordScreen> {
                       Container(
                         padding: const EdgeInsets.all(16),
                         child: TextFormField(
+                          validator: (value) {
+                            if (value != _passwordFieldKey.currentState?.value) {
+                              return 'Password do not match';
+                            }
+                            return null;
+                          },
                           obscureText: true,
                           cursorColor: Color(0xffc5558e),
                           style: GoogleFonts.lato(
@@ -191,6 +211,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
                           //keyboardType: TextInputType.,
                           autofocus: true,
                           textCapitalization: TextCapitalization.sentences,
+
                         ),
                       ),
                     ],
@@ -200,30 +221,6 @@ class _PasswordScreenState extends State<PasswordScreen> {
               SizedBox(
                 height: 10,
               ),
-
-              // Padding(
-              //   padding: const EdgeInsets.all(16.0),
-              //   child: Container(
-              //       decoration: const BoxDecoration(
-              //           color: Color(0xffc5558e),
-              //           borderRadius: BorderRadius.all(Radius.circular(10.0))),
-              //       child: GestureDetector(
-              //         onTap: () {
-              //           Navigator.push(
-              //               context,
-              //               MaterialPageRoute(
-              //                   builder: (_) =>
-              //                       //const PurposeOfVisit()));
-              //                       const LoginScreen()));
-              //         },
-              //         child: const Icon(
-              //           Icons.chevron_right_rounded,
-              //           size: 40.0,
-              //           color: Colors.white,
-              //         ),
-              //       ),
-              //     ),
-              // ),
               const SizedBox(height: 20.0),
             ],
           ),

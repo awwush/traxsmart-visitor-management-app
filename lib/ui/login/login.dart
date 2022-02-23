@@ -8,6 +8,7 @@ import 'package:vms/ui/dashboard.dart';
 import 'package:vms/ui/login/register.dart';
 import 'package:vms/ui/select_language.dart';
 import 'package:vms/extensions/string.dart';
+import 'package:wc_form_validators/wc_form_validators.dart';
 import 'forgot_password.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -20,6 +21,9 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   late ThemeData theme;
   late CustomTheme customTheme;
+  final _formKey = GlobalKey<FormState>();
+  final RegExp phoneRegex = RegExp(r'^[6-9]\d{9}$');
+  final _passwordFieldKey = GlobalKey<FormFieldState<String>>();
 
   @override
   void initState() {
@@ -78,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       bottom: 20,
                       right: 40,
                       child: Text(
-                        "Welcome to VSM".tr(),
+                        "Login".tr(),
                         style: GoogleFonts.lato(
                             textStyle:
                                 const TextStyle(fontWeight: FontWeight.w600),
@@ -111,7 +115,18 @@ class _LoginScreenState extends State<LoginScreen> {
                           cursorColor: Color(0xffc5558e),
                           inputFormatters: <TextInputFormatter>[
                             FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                            LengthLimitingTextInputFormatter(10),
                           ],
+                          validator: Validators.required('Number is required'),
+
+                          // validator: (value) {
+                          //   if (!phoneRegex.hasMatch(value!)) {
+                          //     return 'Please enter valid phone number';
+                          //   }
+                          //   return null;
+                          //
+                          // },
+
                           style: GoogleFonts.lato(
                               letterSpacing: 0.1,
                               color: const Color(0xffc5558e),
@@ -177,6 +192,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Container(
                         padding: const EdgeInsets.all(16),
                         child: TextFormField(
+                          key: _passwordFieldKey,
                           obscureText: true,
                           cursorColor: Color(0xffc5558e),
                           style: GoogleFonts.lato(
@@ -212,6 +228,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           //keyboardType: TextInputType.,
                           autofocus: true,
                           textCapitalization: TextCapitalization.sentences,
+                          validator: Validators.compose([
+                            Validators.required('Password is required'),
+                            Validators.minLength(
+                                3, 'Password cannot be less than 3 characters'),
+                            Validators.patternString(
+                                r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
+                                'Invalid Password')
+                          ]),
                         ),
                       ),
                     ],
@@ -222,30 +246,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 10,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: const BoxDecoration(
-                        color: Color(0xffc5558e),
-                        borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                    child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) =>
-                                      //const PurposeOfVisit()));
-                                      const RegisterScreen()));
-                        },
-                        child: Text(
-                          "Register".tr(),
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                          ),
-                        )),
-                  ),
                   Container(
                     decoration: const BoxDecoration(
                         color: Color(0xffc5558e),
@@ -269,24 +271,50 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
               const SizedBox(height: 20.0),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => const ForgotPassword()));
-                },
-                child: Center(
-                  child: Text(
-                    'Forgot PIN?'.tr(),
-                    style: GoogleFonts.lato(
-                        textStyle: TextStyle(
-                      color: customTheme.homemadePrimary,
-                      fontSize: 14.0,
-                    )),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => const RegisterScreen()));
+                    },
+                    child: Center(
+                      child: Text(
+                        'Register'.tr(),
+                        style: GoogleFonts.lato(
+                            textStyle: TextStyle(
+                          color: customTheme.homemadePrimary,
+                          fontSize: 14.0,
+                        )),
+                      ),
+                    ),
                   ),
-                ),
-              )
+                  SizedBox(
+                    width: 10,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => const ForgotPassword()));
+                    },
+                    child: Center(
+                      child: Text(
+                        'Forgot Password?'.tr(),
+                        style: GoogleFonts.lato(
+                            textStyle: TextStyle(
+                          color: customTheme.homemadePrimary,
+                          fontSize: 14.0,
+                        )),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),

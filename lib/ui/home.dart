@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vms/ui/profile/profile_screen.dart';
-
 import '../data/card_style/card_style.dart';
-import 'purpose_of_visit.dart';
+import 'package:vms/ui/purpose_of_visit.dart';
+import 'package:vms/ui/register_details.dart';
+import '../theme/app_theme.dart';
+import 'more/about.dart';
+import 'more/no_internet.dart';
+import 'more/success.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -14,6 +18,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  showMyDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return _UploadDoneDialog();
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenEnd = MediaQuery.of(context).size.width / 4.2;
@@ -141,9 +153,11 @@ class _HomeState extends State<Home> {
                                           fontWeight: FontWeight.w600)),
                                 ),
                                 onTap: () {
-                                  MaterialPageRoute(
-                                      builder: (_) =>
-                                      const PurposeOfVisit());
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) =>
+                                              const PurposeOfVisit()));
                                 },
                               ),
                               const SizedBox(width: 20.0),
@@ -171,16 +185,17 @@ class _HomeState extends State<Home> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      const ProfileScreen()),
+                                                      const RegisterDetailsScreen()),
                                             );
                                             break;
                                           case 1:
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const ProfileScreen()),
-                                            );
+                                            // Navigator.push(
+                                            //   context,
+                                            //   MaterialPageRoute(
+                                            //       builder: (context) =>
+                                            //           UploadProgress()),
+                                            // );
+                                            showMyDialog(context);
                                             break;
                                           default:
                                           //return HomeRoute();
@@ -259,6 +274,78 @@ class CardStyle extends StatelessWidget {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _UploadDoneDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    return Dialog(
+      child: Container(
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black26,
+              blurRadius: 10.0,
+              offset: Offset(0.0, 10.0),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              child: Center(
+                  child: Icon(
+                Icons.cloud_upload_outlined,
+                size: 40,
+                color: AppTheme.customTheme.homemadePrimary,
+              )),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 16, 0, 0),
+              child: Center(
+                  child: Text("Success!",
+                      style: TextStyle(fontWeight: FontWeight.w700))),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 16, 0, 0),
+              child: Center(
+                  child: Text("Your file upload successful",
+                      style: TextStyle(fontWeight: FontWeight.w600))),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 8, 0, 0),
+              child: Center(
+                  child: Text("Now you can check your file",
+                      style: TextStyle(fontWeight: FontWeight.w600))),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 16, 0, 0),
+              child: Center(
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          primary: AppTheme.customTheme.homemadePrimary,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4.0))),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text("Go to Folder",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: theme.colorScheme.onPrimary)))),
+            )
+          ],
         ),
       ),
     );
