@@ -53,7 +53,7 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
-                            image: AssetImage('assets/images/man.png'),
+                            image: AssetImage('assets/images/traxsmart.png'),
                             fit: BoxFit.fill),
                       ),
                     ),

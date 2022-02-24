@@ -24,222 +24,231 @@ class _PasswordScreenState extends State<PasswordScreen> {
     return Consumer<AppNotifier>(
         builder: (BuildContext context, AppNotifier value, Widget? child) {
       return SafeArea(
-        child: Scaffold(
-          body: ListView(
-            children: [
-              Container(
-                height: MediaQuery.of(context).size.height * 3 / 10,
-                child: Stack(
-                  children: <Widget>[
-                    Container(
-                      decoration: BoxDecoration(
-                          color: const Color(0xffc5558e).withAlpha(100),
-                          borderRadius: const BorderRadius.only(
-                              bottomLeft: Radius.circular(96))),
+        child: Form(
+          key: _formKey,
+          child: Scaffold(
+            body: ListView(
+              children: [
+                Container(
+                  height: MediaQuery.of(context).size.height * 3 / 10,
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        decoration: BoxDecoration(
+                            color: const Color(0xffc5558e).withAlpha(100),
+                            borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(96))),
+                      ),
+                      Positioned(
+                          top: 20,
+                          right: 30,
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          SelectLanguageDialog()));
+                            },
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.vpn_lock_rounded,
+                                  size: 17,
+                                ),
+                                const SizedBox(width: 4.0),
+                                Text(
+                                  'en'.tr(),
+                                  style: GoogleFonts.lato(
+                                      textStyle: const TextStyle(
+                                    fontSize: 14.0,
+                                  )),
+                                ),
+                              ],
+                            ),
+                          )),
+                      Positioned(
+                        bottom: 20,
+                        right: 40,
+                        child: Text(
+                          "Create new Password".tr(),
+                          style: GoogleFonts.lato(
+                              textStyle:
+                                  const TextStyle(fontWeight: FontWeight.w600),
+                              fontSize: 18.0,
+                              color: const Color(0xffc5558e)),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 40.0),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+                  child: Card(
+                    elevation: 3,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                            padding: const EdgeInsets.all(16),
+                            child: Text(
+                              "New Password".tr(),
+                              style: GoogleFonts.lato(
+                                  textStyle:
+                                      TextStyle(fontWeight: FontWeight.w600)),
+                            )),
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          child: TextFormField(
+                            key: _passwordFieldKey,
+                            obscureText: true,
+                            cursorColor: Color(0xffc5558e),
+                            style: GoogleFonts.lato(
+                                letterSpacing: 0.1,
+                                color: const Color(0xffc5558e),
+                                fontWeight: FontWeight.w500),
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(8.0),
+                                  ),
+                                  borderSide: BorderSide.none),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(8.0),
+                                  ),
+                                  borderSide: BorderSide.none),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(8.0),
+                                  ),
+                                  borderSide: BorderSide.none),
+                              filled: true,
+                              fillColor: Color(0xfff0f0f0),
+                              prefixIcon: Icon(
+                                Icons.lock,
+                                size: 22,
+                                color: Color(0xffc5558e),
+                              ),
+                              isDense: true,
+                              contentPadding: EdgeInsets.all(0),
+                            ),
+                            autofocus: true,
+                            textCapitalization: TextCapitalization.sentences,
+                            validator: Validators.compose([
+                              Validators.required('Password is required'),
+                              Validators.minLength(
+                                  3, 'Password cannot be less than 3 characters'),
+                            ]),
+                          ),
+                        ),
+                      ],
                     ),
-                    Positioned(
-                        top: 20,
-                        right: 30,
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        SelectLanguageDialog()));
-                          },
-                          child: Row(
-                            children: [
-                              const Icon(
-                                Icons.vpn_lock_rounded,
-                                size: 17,
-                              ),
-                              const SizedBox(width: 4.0),
-                              Text(
-                                'en'.tr(),
-                                style: GoogleFonts.lato(
-                                    textStyle: const TextStyle(
-                                  fontSize: 14.0,
-                                )),
-                              ),
-                            ],
-                          ),
-                        )),
-                    Positioned(
-                      bottom: 20,
-                      right: 40,
-                      child: Text(
-                        "Create new Password".tr(),
-                        style: GoogleFonts.lato(
-                            textStyle:
-                                const TextStyle(fontWeight: FontWeight.w600),
-                            fontSize: 18.0,
-                            color: const Color(0xffc5558e)),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              const SizedBox(height: 40.0),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-                child: Card(
-                  elevation: 3,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                          padding: const EdgeInsets.all(16),
-                          child: Text(
-                            "New Password".tr(),
-                            style: GoogleFonts.lato(
-                                textStyle:
-                                    TextStyle(fontWeight: FontWeight.w600)),
-                          )),
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        child: TextFormField(
-                          key: _passwordFieldKey,
-                          obscureText: true,
-                          cursorColor: Color(0xffc5558e),
-                          style: GoogleFonts.lato(
-                              letterSpacing: 0.1,
-                              color: const Color(0xffc5558e),
-                              fontWeight: FontWeight.w500),
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(8.0),
-                                ),
-                                borderSide: BorderSide.none),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(8.0),
-                                ),
-                                borderSide: BorderSide.none),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(8.0),
-                                ),
-                                borderSide: BorderSide.none),
-                            filled: true,
-                            fillColor: Color(0xfff0f0f0),
-                            prefixIcon: Icon(
-                              Icons.lock,
-                              size: 22,
-                              color: Color(0xffc5558e),
-                            ),
-                            isDense: true,
-                            contentPadding: EdgeInsets.all(0),
-                          ),
-                          //keyboardType: TextInputType.,
-                          autofocus: true,
-                          textCapitalization: TextCapitalization.sentences,
-                          validator: Validators.compose([
-                            Validators.required('Password is required'),
-                            Validators.minLength(
-                                3, 'Password cannot be less than 3 characters'),
-                            Validators.patternString(
-                                r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
-                                'Invalid Password')
-                          ]),
-                        ),
-                      ),
-                    ],
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-                child: Card(
-                  elevation: 3,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+                  child: Card(
+                    elevation: 3,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                            padding: const EdgeInsets.all(16),
+                            child: Text(
+                              "Confirm Password".tr(),
+                              style: GoogleFonts.lato(
+                                  textStyle:
+                                      TextStyle(fontWeight: FontWeight.w600)),
+                            )),
+                        Container(
                           padding: const EdgeInsets.all(16),
-                          child: Text(
-                            "Confirm Password".tr(),
-                            style: GoogleFonts.lato(
-                                textStyle:
-                                    TextStyle(fontWeight: FontWeight.w600)),
-                          )),
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        child: TextFormField(
-                          validator: (value) {
-                            if (value != _passwordFieldKey.currentState?.value) {
-                              return 'Password do not match';
-                            }
-                            return null;
-                          },
-                          obscureText: true,
-                          cursorColor: Color(0xffc5558e),
-                          style: GoogleFonts.lato(
-                              letterSpacing: 0.1,
-                              color: const Color(0xffc5558e),
-                              fontWeight: FontWeight.w500),
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(8.0),
-                                ),
-                                borderSide: BorderSide.none),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(8.0),
-                                ),
-                                borderSide: BorderSide.none),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(8.0),
-                                ),
-                                borderSide: BorderSide.none),
-                            filled: true,
-                            fillColor: Color(0xfff0f0f0),
-                            prefixIcon: Icon(
-                              Icons.password,
-                              size: 22,
-                              color: Color(0xffc5558e),
-                            ),
-                            isDense: true,
-                            contentPadding: EdgeInsets.all(0),
-                          ),
-                          //keyboardType: TextInputType.,
-                          autofocus: true,
-                          textCapitalization: TextCapitalization.sentences,
+                          child: TextFormField(
+                            validator: (value) {
 
+
+                              if (value != _passwordFieldKey.currentState?.value ) {
+                                return 'Password do not match';
+                              }
+                              return null;
+                            },
+                            obscureText: true,
+                            cursorColor: Color(0xffc5558e),
+                            style: GoogleFonts.lato(
+                                letterSpacing: 0.1,
+                                color: const Color(0xffc5558e),
+                                fontWeight: FontWeight.w500),
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(8.0),
+                                  ),
+                                  borderSide: BorderSide.none),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(8.0),
+                                  ),
+                                  borderSide: BorderSide.none),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(8.0),
+                                  ),
+                                  borderSide: BorderSide.none),
+                              filled: true,
+                              fillColor: Color(0xfff0f0f0),
+                              prefixIcon: Icon(
+                                Icons.password,
+                                size: 22,
+                                color: Color(0xffc5558e),
+                              ),
+                              isDense: true,
+                              contentPadding: EdgeInsets.all(0),
+                            ),
+                            //keyboardType: TextInputType.,
+                            autofocus: true,
+                            textCapitalization: TextCapitalization.sentences,
+
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              const SizedBox(height: 20.0),
-            ],
-          ),
-          bottomNavigationBar: Padding(
-            padding: EdgeInsets.fromLTRB(155, 14, 155, 14),
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => const LoginScreen()));
-              },
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Color(0xffc5558e),
-                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                SizedBox(
+                  height: 10,
                 ),
-                child: const Icon(
-                  Icons.chevron_right_rounded,
-                  size: 40.0,
-                  color: Colors.white,
+                const SizedBox(height: 20.0),
+              ],
+            ),
+            bottomNavigationBar: Padding(
+              padding: EdgeInsets.fromLTRB(155, 14, 155, 14),
+              child: GestureDetector(
+                onTap: () {
+
+                  if (_formKey.currentState!.validate()) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Password Created Successfully')),
+                    );
+
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => const LoginScreen()));
+                  }
+
+                },
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Color(0xffc5558e),
+                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                  ),
+                  child: const Icon(
+                    Icons.chevron_right_rounded,
+                    size: 40.0,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
