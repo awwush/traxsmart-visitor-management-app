@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vms/theme/app_theme.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:vms/ui/qr_scan.dart';
-import 'package:vms/ui/track/camera.dart';
+import 'package:vms/ui/camera.dart';
 import 'package:wc_form_validators/wc_form_validators.dart';
 
 Future<void> main() async {

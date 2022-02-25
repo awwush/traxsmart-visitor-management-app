@@ -93,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 40.0),
+                const SizedBox(height: 25.0),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
                   child: Card(
@@ -267,31 +267,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 20.0),
-                Row(
+                const SizedBox(height: 15.0),
+                Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => const RegisterScreen()));
-                      },
-                      child: Center(
-                        child: Text(
-                          'Register'.tr(),
-                          style: GoogleFonts.lato(
-                              textStyle: TextStyle(
-                            color: customTheme.homemadePrimary,
-                            fontSize: 14.0,
-                          )),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -308,6 +287,35 @@ class _LoginScreenState extends State<LoginScreen> {
                             fontSize: 14.0,
                           )),
                         ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const RegisterScreen()));
+                      },
+                      child: Center(
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Don't have an account? ".tr(),
+                                style: GoogleFonts.lato(
+                                    textStyle: TextStyle(
+                                  fontSize: 14.0,
+                                )),
+                              ),
+                              Text(
+                                'Register'.tr(),
+                                style: GoogleFonts.lato(
+                                    textStyle: TextStyle(
+                                  color: customTheme.homemadePrimary,
+                                  fontSize: 14.0,
+                                )),
+                              ),
+                            ]),
                       ),
                     ),
                   ],

@@ -1,6 +1,4 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:vms/theme/app_notifier.dart';
@@ -21,6 +19,14 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
   late ThemeData theme;
   late CustomTheme customTheme;
   final _formKey = GlobalKey<FormState>();
+
+  showMyDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return _UploadDoneDialog();
+        });
+  }
 
   @override
   void initState() {
@@ -248,12 +254,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
               child: GestureDetector(
                 onTap: () {
                   if (_formKey.currentState!.validate()) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Created Successfully')),
-                    );
-
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => const LoginScreen()));
+                    showMyDialog(context);
                   }
                 },
                 child: Container(
@@ -279,5 +280,80 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
         ),
       );
     });
+  }
+}
+
+class _UploadDoneDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    return Dialog(
+      child: Container(
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black26,
+              blurRadius: 10.0,
+              offset: Offset(0.0, 10.0),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              child: Center(
+                  child: Icon(
+                Icons.check_circle,
+                size: 40,
+                color: AppTheme.customTheme.homemadePrimary,
+              )),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 16, 0, 0),
+              child: Center(
+                  child: Text("Success!",
+                      style: TextStyle(fontWeight: FontWeight.w700))),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 16, 0, 0),
+              child: Center(
+                  child: Text("Your profile created successfully",
+                      style: TextStyle(fontWeight: FontWeight.w600))),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 8, 0, 0),
+              child: Center(
+                  child: Text("Now you can login",
+                      style: TextStyle(fontWeight: FontWeight.w600))),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 16, 0, 0),
+              child: Center(
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          primary: AppTheme.customTheme.homemadePrimary,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4.0))),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const LoginScreen()));
+                      },
+                      child: Text("Login",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: theme.colorScheme.onPrimary)))),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
