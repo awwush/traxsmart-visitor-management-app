@@ -1,34 +1,12 @@
-import 'package:camera/camera.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vms/theme/app_theme.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:vms/ui/qr_scan.dart';
-import 'package:vms/ui/camera.dart';
 import 'package:wc_form_validators/wc_form_validators.dart';
-
-Future<void> main() async {
-  // Ensure that plugin services are initialized so that `availableCameras()`
-  // can be called before `runApp()`
-  WidgetsFlutterBinding.ensureInitialized();
-
-  // Obtain a list of the available cameras on the device.
-  final cameras = await availableCameras();
-
-  // Get a specific camera from the list of available cameras.
-  final firstCamera = cameras.first;
-
-  runApp(
-    MaterialApp(
-      theme: ThemeData.dark(),
-      home: TakePictureScreen(
-        // Pass the appropriate camera to the TakePictureScreen widget.
-        camera: firstCamera,
-      ),
-    ),
-  );
-}
+import 'package:image_picker/image_picker.dart';
 
 class RegisterDetailsScreen extends StatefulWidget {
   const RegisterDetailsScreen({Key? key}) : super(key: key);
@@ -37,7 +15,9 @@ class RegisterDetailsScreen extends StatefulWidget {
   _RegisterDetailsScreenState createState() => _RegisterDetailsScreenState();
 }
 
-class _RegisterDetailsScreenState extends State<RegisterDetailsScreen> {
+class _RegisterDetailsScreenState extends State<RegisterDetailsScreen>
+    with TickerProviderStateMixin {
+  File? _image;
   late ThemeData theme;
   late CustomTheme customTheme;
   final _formKey = GlobalKey<FormState>();
@@ -45,11 +25,22 @@ class _RegisterDetailsScreenState extends State<RegisterDetailsScreen> {
 
   var items = ['Work Type', 'Post Office', 'RTO Office'];
 
-  get firstCamera => firstCamera;
+  //Take Photo from Camera
+  final _picker = ImagePicker();
+  Future takePhoto() async {
+    final XFile? image = await _picker.pickImage(source: ImageSource.camera);
+
+    final File? file = File(image!.path);
+
+    setState(() {
+      _image = file;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
+
     theme = AppTheme.theme;
     customTheme = AppTheme.customTheme;
   }
@@ -96,30 +87,46 @@ class _RegisterDetailsScreenState extends State<RegisterDetailsScreen> {
         body: ListView(
           padding: const EdgeInsets.fromLTRB(24, 44, 24, 0),
           children: [
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
             GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => TakePictureScreen(
-                              camera: firstCamera,
-                            )));
+              onTap: () async {
+                // _imgFromCamera();
+                takePhoto();
               },
-              child: const Center(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(24),
-                  ),
-                  child: Image(
-                    fit: BoxFit.cover,
-                    width: 100,
-                    height: 100,
-                    image: AssetImage('assets/images/visitor.png'),
-                  ),
-                ),
+              child: Center(
+                child: _image == null
+                    ? ClipRRect(
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(24),
+                        ),
+                        child: Container(
+                          width: 100,
+                          height: 100,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(50)),
+                            border: Border.all(
+                                width: 4.0, color: customTheme.homemadePrimary),
+                          ),
+                          child: Icon(
+                            Icons.add_a_photo_outlined,
+                            size: 50,
+                            color: customTheme.homemadePrimary,
+                          ),
+                        ),
+                      )
+                    : ClipRRect(
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(24),
+                        ),
+                        child: Image(
+                          fit: BoxFit.cover,
+                          width: 100,
+                          height: 100,
+                          image: FileImage(File(_image!.path)),
+                        ),
+                      ),
               ),
             ),
             const SizedBox(
@@ -169,15 +176,15 @@ class _RegisterDetailsScreenState extends State<RegisterDetailsScreen> {
               height: 20,
             ),
             Container(
-              padding: const EdgeInsets.fromLTRB(25, 7, 15, 7),
+              padding: const EdgeInsets.fromLTRB(25, 5, 15, 5),
               decoration: BoxDecoration(
                   color: theme.colorScheme.onBackground.withAlpha(18),
                   borderRadius: BorderRadius.circular(8.0),
                   border: Border.all(color: Colors.grey.shade700)),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton(
-                  hint: Text("Work Type"),
-                  disabledHint: Text("Work Type"),
+                  hint: const Text("Work Type"),
+                  disabledHint: const Text("Work Type"),
                   value: dropdownvalue,
                   icon: const Icon(FeatherIcons.arrowDownCircle),
                   items: items.map((String items) {
@@ -209,7 +216,7 @@ class _RegisterDetailsScreenState extends State<RegisterDetailsScreen> {
           ],
         ),
         bottomNavigationBar: Padding(
-          padding: EdgeInsets.fromLTRB(24, 10, 24, 14),
+          padding: const EdgeInsets.fromLTRB(24, 10, 24, 14),
           child: GestureDetector(
             onTap: () {
               if (_formKey.currentState!.validate()) {
